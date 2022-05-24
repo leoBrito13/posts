@@ -1,10 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import Posts from 'components/posts';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import Posts from "components/posts";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('react-posts') as HTMLElement
+  document.getElementById("react-posts") as HTMLElement
 );
 root.render(
   <React.StrictMode>
