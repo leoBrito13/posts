@@ -4,7 +4,7 @@ import './index.css';
 import Posts from 'components/posts';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById('react-posts') as HTMLElement
 );
 root.render(
   <React.StrictMode>
