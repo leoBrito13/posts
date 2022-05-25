@@ -1,4 +1,15 @@
-box-post-single{
-    background-color: #000;
+.box_post_single{
+    background-color: #fff;
+    padding: 20px;
+}
 
+.col_posts{
+    min-height:361px;
+    margin: 30px auto;
+}
+
+.carregar_spinner{
+    margin-top: 20px;
+    margin:auto;
+    text-align: center;
 }

@@ -1,0 +1,22 @@
+.box_post_single {
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #e3e3e3;
+    clear: both;
+}
+
+.box_post_single h3 {
+  font-size: 22px;
+}
+
+.post_descricao {
+  padding: 20px;
+  min-height: 361px;
+}
+
+.clb_post_thumbnail {
+  min-height: 200px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}

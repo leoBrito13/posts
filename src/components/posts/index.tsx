@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { IPosts } from "components/interfaces/IPosts";
 import https from "components/https";
-import { Col, Row, Spinner } from "react-bootstrap";
-import styles from './posts.module.css';
+import { Container, Col, Row, Spinner } from "react-bootstrap";
+import styles from "./posts.module.css";
+import PostBox from "./PostBox";
 
-export default function Posts() {
+export default function Posts(): JSX.Element {
   const loaderRef = useRef(null);
   const [PageError, setPageError] = useState(false);
   const [Mensagem, setMensagem] = useState("");
@@ -14,7 +15,7 @@ export default function Posts() {
   const options = {
     root: null,
     rootMargin: "20px",
-    threshold: 1.0,
+    threshold: 0.5,
   };
 
   const observer = new IntersectionObserver((entries) => {
@@ -30,22 +31,21 @@ export default function Posts() {
     const CarregarMais = async () => {
       try {
         if (ProxPagina !== 0 && PageError === false) {
-          const { data } = await https.get("posts/", {
+          const { data } = await https.get("posts/?_embed", {
             params: {
               page: ProxPagina,
-              per_page: 20,
+              per_page: 12,
             },
           });
-          console.log(data);
           if (Mensagem === "") {
             setMensagem(" Carregando mais ...");
           }
-          setPosts( posts =>[...posts, ...data]);
+          setPosts((posts) => [...posts, ...data]);
         }
       } catch (error) {
         //console.log(error);
         setMensagem("");
-        setPageError(PageError => true);
+        setPageError((PageError) => true);
       }
     };
     CarregarMais();
@@ -58,24 +58,34 @@ export default function Posts() {
   }, []);
 
   return (
-    <Row>
-      {posts.map((post, index) => (
-        <Col md={4}>
-          <div key={index} className={styles.box_post_single}>
-            <div>
-              <h1>{post.title["rendered"]} </h1>
-            </div>
-          </div>
-        </Col>
-      ))}
-      <p className="carregar-spinner" ref={loaderRef}>
-        {Mensagem !== "" ? (
-          <Spinner animation="border" role="status"></Spinner>
-        ) : (
-          ""
-        )}
-        {Mensagem}
-      </p>
-    </Row>
+    <Container>
+      <Row>
+        {posts.map((post, index) => (
+          <Col key={index} md={4} className={styles.col_posts}>
+            <PostBox
+              id={post.id}
+              title={post.title}
+              excerpt={post.excerpt}
+              date={post.date}
+              link={post.link}
+              image={
+                post._embedded["wp:featuredmedia"][0].media_details.sizes
+                  .thumbnail.source_url
+              }
+            />
+          </Col>
+        ))}
+        <>
+          <span className={styles.carregar_spinner} ref={loaderRef}>
+            {Mensagem !== "" ? (
+              <Spinner animation="border" role="status"></Spinner>
+            ) : (
+              ""
+            )}
+            {Mensagem}
+          </span>
+        </>
+      </Row>
+    </Container>
   );
 }
