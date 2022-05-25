@@ -6,5 +6,5 @@ export interface IPostBox {
     excerpt: {rendered:any }
     date:string;
     link:string;
-    image:string;
+    image:string | null;
 }

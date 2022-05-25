@@ -69,22 +69,24 @@ export default function Posts(): JSX.Element {
               date={post.date}
               link={post.link}
               image={
-                post._embedded["wp:featuredmedia"][0].media_details.sizes
-                  .thumbnail.source_url
+                post?._embedded["wp:featuredmedia"][0].code ===
+                "rest_post_invalid_id"
+                  ? ""
+                  : post?._embedded["wp:featuredmedia"][0].media_details.sizes
+                      .thumbnail.source_url
               }
             />
           </Col>
         ))}
-        <>
-          <span className={styles.carregar_spinner} ref={loaderRef}>
-            {Mensagem !== "" ? (
-              <Spinner animation="border" role="status"></Spinner>
-            ) : (
-              ""
-            )}
-            {Mensagem}
-          </span>
-        </>
+
+        <span className={styles.carregar_spinner} ref={loaderRef}>
+          {Mensagem !== "" ? (
+            <Spinner animation="border" role="status"></Spinner>
+          ) : (
+            ""
+          )}
+          {Mensagem}
+        </span>
       </Row>
     </Container>
   );
