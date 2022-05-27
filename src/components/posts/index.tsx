@@ -4,6 +4,7 @@ import https from "components/https";
 import { Container, Col, Row, Spinner } from "react-bootstrap";
 import styles from "./posts.module.css";
 import PostBox from "./PostBox";
+import { ICategorias } from "components/interfaces/ICategorias";
 
 export default function Posts(): JSX.Element {
   const loaderRef = useRef(null);
@@ -11,6 +12,7 @@ export default function Posts(): JSX.Element {
   const [Mensagem, setMensagem] = useState("");
   const [ProxPagina, setProxPagina] = useState(0);
   const [posts, setPosts] = useState<IPosts[]>([]);
+  const [categorias, setCategorias] = useState<ICategorias[]>([]);
 
   const options = {
     root: null,
@@ -37,6 +39,7 @@ export default function Posts(): JSX.Element {
               per_page: 12,
             },
           });
+          //console.log(data);
           if (Mensagem === "") {
             setMensagem(" Carregando mais ...");
           }
@@ -50,6 +53,20 @@ export default function Posts(): JSX.Element {
     };
     CarregarMais();
   }, [ProxPagina]);
+
+  useEffect(() => {
+    const CarregarCategorias = async () => {
+      try {
+        const { data } = await https.get("/categories");
+        setCategorias((categorias) => [...data]);
+      } catch (error) {
+        //console.log(error);
+        setCategorias([]);
+      }
+    };
+
+    CarregarCategorias();
+  }, []);
 
   useEffect(() => {
     if (loaderRef.current && PageError !== true) {
@@ -68,9 +85,11 @@ export default function Posts(): JSX.Element {
               excerpt={post.excerpt}
               date={post.date}
               link={post.link}
+              categoria={post.categories}
+              listaCategorias={categorias === undefined ? [] : categorias}
               image={
-                post?._embedded["wp:featuredmedia"][0].code ===
-                "rest_post_invalid_id"
+                post._embedded["wp:featuredmedia"] === undefined || post?._embedded["wp:featuredmedia"][0].code ===
+                "rest_post_invalid_id" 
                   ? ""
                   : post?._embedded["wp:featuredmedia"][0].media_details.sizes
                       .thumbnail.source_url
@@ -79,14 +98,14 @@ export default function Posts(): JSX.Element {
           </Col>
         ))}
 
-        <span className={styles.carregar_spinner} ref={loaderRef}>
-          {Mensagem !== "" ? (
+       <span className={styles.carregar_spinner} ref={loaderRef}>
+          {Mensagem !== "" && (posts.length > 10) ? (
             <Spinner animation="border" role="status"></Spinner>
           ) : (
             ""
           )}
-          {Mensagem}
-        </span>
+          {(posts.length > 10) ? Mensagem: null}
+        </span> 
       </Row>
     </Container>
   );
