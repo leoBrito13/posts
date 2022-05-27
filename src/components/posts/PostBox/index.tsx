@@ -1,5 +1,6 @@
 import { IPostBox } from "components/interfaces/IPostBox";
 import styles from "./postBox.module.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function postBox(Props: IPostBox) {
   return (
@@ -7,9 +8,20 @@ export default function postBox(Props: IPostBox) {
       <div
         className={styles.clb_post_thumbnail}
         style={{ backgroundImage: `url(${Props.image})` }}
-      ></div>
+      >
+        <div className={styles.clb_hover}>
+          <ul>
+            <li>
+              <a href={Props.link} className="fas fa-link"><FontAwesomeIcon icon={["fas","link"]} /></a>
+            </li>
+          </ul>
+        </div>
+        <div className={styles.clb_date}>
+          <span className={styles.clb_date}></span>
+          <span className={styles.clb_month}></span>
+        </div>
+      </div>
       <div className={styles.post_conteudo}>
-        {console.log(Props.listaCategorias)}
         {Props.listaCategorias.map((categoria: any, index: any) => {
           return Props.categoria.includes(categoria.id) == true &&
             categoria.name !== "Sem categoria" ? (
