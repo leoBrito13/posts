@@ -14,16 +14,16 @@ export default function postBox(Props: IPostBox) {
       >
         <div className={styles.clb_hover}>
           <ul className={styles.clb_post_link}>
-            <li>
-              <a href={Props.link} className="fas fa-link">
-                <FontAwesomeIcon icon={faLink} />
+            <li className={styles.clb_post_link}> 
+              <a href={Props.link}>
+                <FontAwesomeIcon icon={faLink}/>
               </a>
             </li>
           </ul>
         </div>
-        <div className={styles.clb_date}>
-          <span className={styles.clb_date}></span>
-          <span className={styles.clb_month}></span>
+        <div className={styles.clb_post_date}>
+          <span className={styles.clb_date}>27</span>
+          <span className={styles.clb_month}>05</span>
         </div>
       </div>
       <div className={styles.post_conteudo}>
