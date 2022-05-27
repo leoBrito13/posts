@@ -1,6 +1,8 @@
 import { IPostBox } from "components/interfaces/IPostBox";
 import styles from "./postBox.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLink } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function postBox(Props: IPostBox) {
   return (
@@ -12,7 +14,10 @@ export default function postBox(Props: IPostBox) {
         <div className={styles.clb_hover}>
           <ul>
             <li>
-              <a href={Props.link} className="fas fa-link"><FontAwesomeIcon icon={["fas","link"]} /></a>
+              <a href={Props.link} className="fas fa-link">
+                <FontAwesomeIcon icon={["fas","link"]} />
+                <FontAwesomeIcon icon={faLink} />
+              </a>
             </li>
           </ul>
         </div>
