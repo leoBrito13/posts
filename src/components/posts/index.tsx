@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { IPosts } from "components/interfaces/IPosts";
 import https from "components/https";
-import { Container, Col, Row, Spinner } from "react-bootstrap";
 import styles from "./posts.module.css";
 import PostBox from "./PostBox";
 import { ICategorias } from "components/interfaces/ICategorias";
+import Loading from 'assets/loading.gif'
 
 export default function Posts(): JSX.Element {
   const loaderRef = useRef(null);
@@ -39,7 +39,6 @@ export default function Posts(): JSX.Element {
               per_page: 12,
             },
           });
-          //console.log(data);
           if (Mensagem === "") {
             setMensagem(" Carregando mais ...");
           }
@@ -55,17 +54,15 @@ export default function Posts(): JSX.Element {
   }, [ProxPagina]);
 
   useEffect(() => {
-    const CarregarCategorias = async () => {
-      try {
-        const { data } = await https.get("/categories");
-        setCategorias((categorias) => [...data]);
-      } catch (error) {
-        //console.log(error);
-        setCategorias([]);
-      }
-    };
-
-    CarregarCategorias();
+    // obter categorias
+    https
+      .get<ICategorias[]>("/categories")
+      .then((resposta) => {
+        setCategorias([...resposta.data]);
+      })
+      .catch((erro) => {
+        console.log(erro);
+      });
   }, []);
 
   useEffect(() => {
@@ -75,10 +72,12 @@ export default function Posts(): JSX.Element {
   }, []);
 
   return (
-    <Container>
-      <Row>
+    <>
+      <div
+        className={`grid grid-flow-row lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1`}
+      >
         {posts.map((post, index) => (
-          <Col key={index} md={4} className={styles.col_posts}>
+          <div key={index} className={styles.col_posts}>
             <PostBox
               id={post.id}
               title={post.title}
@@ -88,25 +87,25 @@ export default function Posts(): JSX.Element {
               categoria={post.categories}
               listaCategorias={categorias === undefined ? [] : categorias}
               image={
-                post._embedded["wp:featuredmedia"] === undefined || post?._embedded["wp:featuredmedia"][0].code ===
-                "rest_post_invalid_id" 
+                post._embedded["wp:featuredmedia"] === undefined ||
+                post?._embedded["wp:featuredmedia"][0].code ===
+                  "rest_post_invalid_id"
                   ? ""
                   : post?._embedded["wp:featuredmedia"][0].media_details.sizes
-                      .medium_large.source_url
+                      .thumbnail.source_url
               }
             />
-          </Col>
+          </div>
         ))}
-
-       <span className={styles.carregar_spinner} ref={loaderRef}>
-          {Mensagem !== "" && (posts.length > 10) ? (
-            <Spinner animation="border" role="status"></Spinner>
+      </div>
+      <p className={styles.mensagem} ref={loaderRef}>
+      {Mensagem !== "" && (posts.length > 10) ? (
+            <img className={styles.carregar_img} src={Loading} />
           ) : (
             ""
           )}
-          {(posts.length > 10) ? Mensagem: null}
-        </span> 
-      </Row>
-    </Container>
+        <span>{Mensagem}</span>
+      </p>
+    </>
   );
 }

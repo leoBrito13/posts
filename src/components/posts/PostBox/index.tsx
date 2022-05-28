@@ -21,8 +21,7 @@ export default function postBox(Props: IPostBox) {
     "Dezembro",
   ];
   return (
-    <>
-      {console.log(dataModificado[1])}
+    
       <div key={Props.id} className={styles.box_post_single}>
         <div
           className={styles.clb_post_thumbnail}
@@ -69,6 +68,5 @@ export default function postBox(Props: IPostBox) {
           </a>
         </div>
       </div>
-    </>
   );
 }
