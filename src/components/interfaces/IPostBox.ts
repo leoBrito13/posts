@@ -3,7 +3,7 @@ export interface IPostBox {
     title: {rendered:any}
     excerpt: {rendered:any }
     categoria:any;
-    date:string;
+    date:String;
     link:string;
     image:string;
     listaCategorias:any;

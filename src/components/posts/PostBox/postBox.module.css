@@ -21,7 +21,7 @@
 .post_titulo {
   font-weight: bold;
   color: #000;
-  margin-top:15px;
+  margin-top: 15px;
 }
 .post_descricao {
   margin: 20px auto;
@@ -39,6 +39,11 @@
   bottom: 30px;
 }
 
+.clb_read_more:hover {
+  text-decoration: none;
+  color: var(--clb_cor_botao_hover);;
+}
+
 .categoria {
   background-color: #f1f1f1;
   color: #9a9a9a;
@@ -47,7 +52,7 @@
   margin: 0 5px 5px 0;
 }
 .clb_post_thumbnail {
-  min-height: 200px;
+  min-height: 190px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -56,7 +61,7 @@
   overflow: hidden;
 }
 
-.clb_hover{
+.clb_hover {
   position: absolute;
   top: 0;
   left: 0;
@@ -64,14 +69,14 @@
   height: 100%;
   opacity: 0;
   background-color: rgba(0, 0, 0, 0.6);
-  transition: all 0.30s ease;
+  transition: all 0.3s ease;
 }
 
- .clb_hover ul {
+.clb_hover ul {
   list-style: none;
- }
+}
 
- .clb_hover ul i{
+.clb_hover ul i {
   color: #fff;
   font-size: 20px;
   width: 40px;
@@ -79,9 +84,9 @@
   line-height: 40px;
   text-align: center;
   border: 1px solid #fff;
- }
+}
 
-.box_post_single:hover .clb_hover{
+.box_post_single:hover .clb_hover {
   opacity: 1;
 }
 
@@ -95,7 +100,7 @@
 
 .clb_post_link li a {
   color: #fff;
-  font-size: 20px;
+  font-size: 25px;
   width: 40px;
   height: 40px;
   line-height: 40px;
@@ -106,8 +111,8 @@
 .clb_post_link li a:hover {
   color: #fff;
   text-decoration: none;
-  background-color: #16a965;
-  border-color: #16a965;
+  background-color: var(--clb_cor_botao_hover);
+  border-color: var(--clb_cor_botao_hover);
 }
 
 .clb_post_date {
@@ -123,7 +128,7 @@
   font-size: 20px;
   font-weight: bold;
   text-align: center;
-  background-color: #0f7948;
+  background-color: var(--clb_cor_secundaria);
   width: 100%;
   padding-top: 7px;
   line-height: 1.4;
@@ -135,7 +140,7 @@
   color: #fff;
   font-size: 20px;
   font-weight: bold;
-  background-color: #16a965;
+  background-color: var(--clb_cor_principal);
   height: 35px;
   line-height: 1.3;
   text-transform: capitalize;

@@ -92,7 +92,7 @@ export default function Posts(): JSX.Element {
                 "rest_post_invalid_id" 
                   ? ""
                   : post?._embedded["wp:featuredmedia"][0].media_details.sizes
-                      .thumbnail.source_url
+                      .medium_large.source_url
               }
             />
           </Col>
