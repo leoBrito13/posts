@@ -4,7 +4,7 @@ import https from "components/https";
 import styles from "./posts.module.css";
 import PostBox from "./PostBox";
 import { ICategorias } from "components/interfaces/ICategorias";
-import Loading from 'assets/loading.gif'
+import Loading from "assets/loading.gif";
 
 export default function Posts(): JSX.Element {
   const loaderRef = useRef(null);
@@ -40,7 +40,7 @@ export default function Posts(): JSX.Element {
             },
           });
           if (Mensagem === "") {
-            setMensagem(" Carregando mais ...");
+            setMensagem(" Carregando ...");
           }
           setPosts((posts) => [...posts, ...data]);
         }
@@ -99,11 +99,11 @@ export default function Posts(): JSX.Element {
         ))}
       </div>
       <p className={styles.mensagem} ref={loaderRef}>
-      {Mensagem !== "" && (posts.length > 10) ? (
-            <img className={styles.carregar_img} src={Loading} />
-          ) : (
-            ""
-          )}
+        {Mensagem !== "" && posts.length > 10 ? (
+          <img className={styles.carregar_img} src={Loading} />
+        ) : (
+          ""
+        )}
         <span>{Mensagem}</span>
       </p>
     </>
