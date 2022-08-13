@@ -30,7 +30,7 @@ export default function postBox(Props: IPostBox) {
             <div className={styles.clb_hover}>
               <ul className={styles.clb_post_link}>
                 <li className={styles.clb_post_link}>
-                  <a href={Props.link}>
+                  <a href={Props.link} target ="_blank">
                     <FontAwesomeIcon icon={faLink} />
                   </a>
                 </li>
@@ -48,12 +48,12 @@ export default function postBox(Props: IPostBox) {
           {Props.listaCategorias.map((categoria: any, index: any) => {
             return Props.categoria.includes(categoria.id) == true &&
               categoria.name !== "Sem categoria" ? (
-              <a key={index} href={categoria.link} className={styles.categoria}>
+              <a key={index} href={categoria.link} className={styles.categoria} target ="_blank">
                 {categoria.name}
               </a>
             ) : null;
           })}
-          <a href={Props.link}>
+          <a href={Props.link} target ="_blank">
             <h3
               className={styles.post_titulo}
               dangerouslySetInnerHTML={{ __html: Props.title["rendered"] }}
@@ -63,7 +63,7 @@ export default function postBox(Props: IPostBox) {
             className={styles.post_descricao}
             dangerouslySetInnerHTML={{ __html: Props.excerpt["rendered"] }}
           ></p>
-          <a href={Props.link} className={styles.clb_read_more}>
+          <a href={Props.link} className={styles.clb_read_more} target ="_blank">
             leia mais
           </a>
         </div>
